@@ -16,10 +16,6 @@ import os
 # environment variables
 SECRET_KEY = config('SECRET_KEY')
 
-# or local files
-with open('etc/secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
