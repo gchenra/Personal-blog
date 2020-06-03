@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item active">Boards</li>
+  <li class="breadcrumb-item active">Topics</li>
 {% endblock %}
 
 {% block content %}
+  <a href="#" class="btn btn-primary mb-4" role="button">Create a New Topic</a>
   <table class="table">
     <thead class="thead-inverse">
       <tr>
-        <th>Board</th>
-        <th>Posts</th>
         <th>Topics</th>
+        <th>Posts</th>
+        <th>Replies</th>
         <th>Last Post</th>
       </tr>
     </thead>
@@ -21,8 +22,8 @@
             <a href="{% url 'board_topics' board.pk %}">{{ board.name }}</a>
             <small class="text-muted d-block">{{ board.description }}</small>
           </td>
-          <td class="align-middle">{{ board.get_post_count }}</td>
           <td class="align-middle">{{ board.topics.count }}</td>
+          <td class="align-middle">{{ board.get_posts_count }}</td>
           <td class="align-middle">
             {% with post=board.get_last_post %}
               {% if post %}
