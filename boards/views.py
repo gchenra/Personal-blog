@@ -17,6 +17,15 @@ class BoardListView(ListView):
 	context_object_name = "boards"
 	template_name = 'home.html'
 
+@login_required
+def new_board(request):
+
+	if request.method == 'POST':
+		form = NewBoardForm(request.POST)
+
+		if form.is_valid():
+			board = form.save
+
 class TopicListView(ListView):
 	model = Topic
 	context_object_name = 'topics'

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Topic, Post
+from .models import Topic, Post, Board
 
 class NewTopicForm(forms.ModelForm):
 	message = forms.CharField(
@@ -20,3 +20,19 @@ class PostForm(forms.ModelForm):
 	class Meta:
 		model = Post
 		fields = ['message']
+
+class NewBoardForm(forms.ModelForm):
+	name = forms.CharField(
+		max_length=30,
+		help_text="name can not be more than 30 words"
+	)
+
+	description = forms.CharField(
+		max_length=100,
+		help_text="max length 100 words"
+	)
+
+	class Meta:
+		model = Board
+		fields = ['name', 'description']
+
