@@ -16,10 +16,6 @@ import os
 # environment variables
 SECRET_KEY = config('SECRET_KEY')
 
-# or local files
-with open('etc/secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -129,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
@@ -137,5 +133,13 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
+EMAIL_HOST = config('EMAIL_HOST', default='')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
+# TODO: change if you use for your personal blog
+DEFAULT_FROM_EMAIL = 'Django Boards <noreply@jhchen.cc>'
+EMAIL_SUBJECT_PREFIX = '[Django Board]'

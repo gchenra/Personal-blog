@@ -8,4 +8,3 @@ python-decouple==3.3
 pytz==2019.3 ## automatically come with django
 sqlparse==0.3.1
 zipp==3.1.0
-python==3.7.3
