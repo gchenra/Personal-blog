@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 import django.http as http
 from .models import Board, Topic, Post
-from .forms import NewTopicForm, PostForm
+from .forms import NewTopicForm, PostForm, NewBoardForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.views.generic import UpdateView, ListView
@@ -24,7 +24,12 @@ def new_board(request):
 		form = NewBoardForm(request.POST)
 
 		if form.is_valid():
-			board = form.save
+			board = form.save()
+
+			return redirect('home')
+	else:
+		form = NewBoardForm()
+	return render(request, 'new_board.html', {'form':form})
 
 class TopicListView(ListView):
 	model = Topic
@@ -54,19 +59,6 @@ def new_topic(request, pk):
 			topic.starter = request.user
 			topic.save()
 
-			"""
-			TODO: why change this from the code above???
-
-			subject = request.POST['subject']
-			message = request.POST['message']
-			user = User.objects.first() # TODO: get the current user
-
-			topic = Topic.objects.create(
-				subject=subject,
-				board=board,
-				starter=user
-			)
-			"""
 			post = Post.objects.create(
 				message=form.cleaned_data.get('message'),
 				topic=topic,
@@ -74,7 +66,7 @@ def new_topic(request, pk):
 			)
 			return redirect('topic_posts', pk=pk, topic_pk=topic.pk) 
 	else:
-		form = NewTopicForm
+		form = NewTopicForm()
 	return render(request, 'new_topic.html', {'board':board, 'form':form})
 
 

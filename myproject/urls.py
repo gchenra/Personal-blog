@@ -21,6 +21,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
 	re_path(r'^$', views.BoardListView.as_view(), name='home'),
+    re_path(r'^new/board/$', views.new_board, name='new_board'),
 	re_path(r'^boards/(?P<pk>\d+)/$', views.TopicListView.as_view(), name='board_topics'),
     re_path(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
     re_path(r'^admin/', admin.site.urls),
